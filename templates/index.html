@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLOW GLOW</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header class="header">
+    <nav class="nav-bar">
+      <div class="logo">
+        <a href="#">
+          <img src="{{ url_for('static', filename='images/GlowGlow Logo.png') }}" alt="Logo">
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('upload') }}">Skin Analysis Tool</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-banner">
+      <h1>WELCOME TO GLOW GLOW</h1>
+      <p>Your personalized skincare companion powered by AI. Say goodbye to uncertainty and hello to glowing skin!</p>
+      <a href="{{ url_for('upload') }}" class="cta-btn">GET STARTED</a>
+    </div>
+  </header>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="footerLeft">
+        <h2>CONTACT US</h2>
+        <h3>Email</h3>
+        <h4>Info@GlowGlow.com</h4>
+    </div>
+    <div class="footerCenter">
+        <h1>GLOWGLOW</h1>
+        <p>Revolutionizing beauty routines, we make skincare easier and more personalized for everyone.</p>
+        <p class="footer-company">© 2024 by GlowGlow.</p>
+    </div>
+    <div class="footerRight">
+        <h2>Register Now</h2>
+        <a href="registerPage.html" class="register">REGISTER</a>
+    </div>
+  </footer>
+
+  <script src="static/script.js"></script>
+
+</body>
+</html>

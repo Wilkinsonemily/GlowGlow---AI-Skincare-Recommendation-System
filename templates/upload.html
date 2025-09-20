@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin Analysis and Product Recommendations</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+  <div class="skin-analysis-container">
+    <!-- Step 1: Skin Type Prediction -->
+    <div class="skin-analysis-header">
+      <h1>Upload Your Image</h1>
+      <p>Click below to upload your face image and generate your skin type.</p>
+    </div>
+
+    <!-- Image Upload Section -->
+    <div class="image-upload-section">
+      <div class="image-frame">
+        <img id="uploadedImage" src="" alt="" class="image-preview" />
+        <div class="frame-overlay">
+          <p>Upload your image to generate your skin type</p>
+        </div>
+      </div>
+
+      <!-- Form to Upload Image -->
+      <div class="upload-buttons">
+        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+          <input type="file" name="image" id="fileInput" accept="image/*" required onchange="previewImage(event)">
+          <button type="submit">Upload</button>
+        </form>
+      </div>
+
+      <!-- Display Skin Type -->
+      <div id="result">
+        {% if skin_type %}
+          <h2><br>Skin Type: {{ skin_type }}</h2>
+          <button id="nextStepButton" onclick="nextStep()">Proceed to Get Recommendations</button>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Step 2: Detailed Product Recommendations-->
+    <div id="recommendationSection" style="display: none;">
+      <h2 class="mt-4">Get Detailed Product Recommendations</h2>
+      <form id="recommendationForm" action="{{ url_for('recommendations') }}" method="POST">
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <select class="form-control" id="gender" name="gender" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age:</label>
+          <input type="number" class="form-control" id="age" name="age" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label for="skin_type">Skin Type:</label>
+          <select class="form-control" id="skin_type_input" name="skin_type" required>
+            <option value="" disabled selected>Select your skin type</option>
+            <option value="Oily">Oily</option>
+            <option value="Dry">Dry</option>
+            <option value="Acne">Acne</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="product_category">Product Category:</label>
+          <select class="form-control" id="product_category" name="product_category" required>
+            <option value="" disabled selected>Select a product category</option>
+            <option value="Moisturizer">Moisturizer</option>
+            <option value="Exfoliator">Exfoliator</option>
+            <option value="Cleanser">Cleanser</option>
+            <option value="Mask">Mask</option>
+            <option value="Serum">Serum</option>
+            <option value="Sunscreen">Sunscreen</option>
+            <option value="Toner">Toner</option>
+          </select>
+        </div>
+
+        <button type="submit" class="upload-btn">Get Product Recommendations</button>
+      </form>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footerCenter">
+      <p>Powered by Glow Glow AI</p>
+    </div>
+
+    <!-- Back to Home Link -->
+    <div class="back-to-home">
+      <a href="{{ url_for('index') }}" class="back-home-btn">Back to Home</a>
+    </div>
+  
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <script>
+
+    function previewImage(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const imagePreview = document.getElementById('uploadedImage');
+        imagePreview.src = e.target.result;
+      }
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Function to navigate to the next step for product recommendations
+    function nextStep() {
+      document.getElementById('recommendationSection').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
